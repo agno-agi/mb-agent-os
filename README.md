@@ -36,6 +36,8 @@ export OPENAI_API_KEY="YOUR_API_KEY_HERE"
 export EXA_API_KEY="YOUR_API_KEY_HERE"
 ```
 
+Note: We are using OpenAI to create embeddings for the knowledge base. So, please export the `OPENAI_API_KEY` environment variable to use the Agno Knowledge Agent.
+
 > [!TIP]
 > You can use the `example.env` file as a template to create your own `.env` file.
 
@@ -75,7 +77,8 @@ The `/agents` folder contains pre-built agents that you can use as a starting po
 
 - Web Search Agent: A simple agent that can search the web.
 - Agno Assist: An Agent that can help answer questions about Agno.
-  - Important: Make sure to load the `agno_assist` knowledge base before using this agent by running `python agents/agno_knowledge_agent.py`. Running this script will add the Agno documentation to the knowledge base. Use the docker command `docker exec -it mb-agent-os-agent-os-1 python agents/agno_knowledge_agent.py` to run the script.
+  - Important: Make sure to load the `agno_assist` knowledge base before using this agent by running `docker exec -it mb-agent-os-agent-os-1 python -m agents.agno_knowledge_agent
+`. Running this script will add the Agno documentation to the knowledge base.
 - Finance Agent: An agent that uses the YFinance API to get stock prices and financial data.
 - Research Agent: An agent that can search the web for information.
 - Memory Manager: An agent that can manage the memory of the agents.

@@ -3,16 +3,16 @@ chat:
     agno-mcp-agent:
       - "What is AgentOS?"
       - "What are Agno's key features?"
-      - "What's the difference between an Agent and a Team in Agno?"
+      - "What is the difference between a Team and a Workflow in Agno?"
 
     agno-knowledge-agent:
       - "What is AgentOS?"
       - "What are Agno's key features?"
-      - "What's the difference between an Agent and a Team in Agno?"
+      - "What is the difference between a Team and a Workflow in Agno?"
 
     youtube-agent:
+      - "Explain this video in simple terms: https://www.youtube.com/watch?v=nLkBNnnA8Ac&t=1s"
       - "Summarize this video: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      - "Explain this video in simple terms: <paste YouTube URL>"
       - "What can you do?"
 
     finance-agent:
@@ -36,9 +36,9 @@ chat:
       - "What's happening in the global energy markets?"
 
     memory-manager:
-      - "What do you know about me??"
+      - "What do you know about me?"
       - "I live in New York City"
-      - "I'm a software engineer"
+      - "I like to hike and swim on the weekends"
 
     content-creation-workflow:
       - "Research and write an article about the latest trends in AI development"

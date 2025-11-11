@@ -1,6 +1,6 @@
 from os import getenv
 from textwrap import dedent
-from typing import List
+from typing import Dict, List, Optional
 
 from agno.agent import Agent
 from agno.models.anthropic import Claude
@@ -10,6 +10,7 @@ from agno.tools.hackernews import HackerNewsTools
 from agno.tools.reasoning import ReasoningTools
 from agno.workflow import Step, Workflow
 from agno.workflow.parallel import Parallel
+from agno.workflow.step import StepInput, StepOutput
 
 from db.demo_db import demo_db
 
@@ -89,12 +90,15 @@ writer = Agent(
         engaging, and well-structured content.
         """),
     instructions=dedent("""\
-        1. Review all research findings from the parallel research phase.
+        **Input:** The consolidated research from the Research Phase.
+        **Output:** A well-structured and engaging report on the user's request.
+        **Instructions:**
+        1. Analyze and consolidate all the research findings that you have received.
         2. Identify key themes, insights, and important details.
-        3. Structure the content logically with clear sections.
+        3. Structure the content logically with clear sections and sub-sections.
         4. Write in a clear, engaging style appropriate for the topic.
         5. Include relevant citations and links from the research.
-        6. Use reasoning tools to think through complex topics and structure.
+        6. Use reasoning tools to think through complex topics and structure the content.
         """),
     add_history_to_context=True,
     markdown=True,
@@ -110,17 +114,45 @@ reviewer = Agent(
         clarity, and completeness.
         """),
     instructions=dedent("""\
+        **Input:** A report on the user's request based on the research.
+        **Output:** A final polished version of the content with any necessary edits.
+        **Instructions:**
         1. Review the written content thoroughly.
         2. Check for factual accuracy based on the research.
         3. Ensure the content is well-structured and flows logically.
-        4. Verify that all sources are properly cited.
-        5. Suggest improvements for clarity, conciseness, and engagement.
+        4. Verify that all sources are properly cited and that the content is accurate and complete.
         6. Provide a final polished version with any necessary edits.
+        7. This is the final report so make sure that you do not include any information not relevant to report. 
+        8. Your output should be a final polished version of the content with any necessary edits.
         """),
     add_history_to_context=True,
     markdown=True,
     db=demo_db,
 )
+
+
+async def consolidate_research_step_function(input: StepInput) -> StepOutput:
+    """Consolidate the research from the different agents"""
+    # Get all previous step outputs
+    previous_step_outputs: Optional[Dict[str, StepOutput]] = input.previous_step_outputs
+    # Get the parallel step output
+    parallel_step_output: Optional[StepOutput] = (
+        previous_step_outputs.get("Research Phase") if previous_step_outputs else None
+    )
+    # Get the list of step outputs from the parallel step
+    parallel_step_output_list: Optional[List[StepOutput]] = parallel_step_output.steps if parallel_step_output else None
+    # Create the research content by combining the content of the different step outputs
+    research_content = (
+        "Please use the following extracted research create a comprehensive report on the user's request. \n\n"
+    )
+    if parallel_step_output_list and len(parallel_step_output_list) > 0:
+        for step_output in parallel_step_output_list:
+            research_content += f"## {step_output.step_name} \n\n{step_output.content}\n\n"
+
+        return StepOutput(content=research_content, success=True)
+
+    return StepOutput(content="No research content found", success=False)
+
 
 # ============================================================================
 # Create Workflow Steps
@@ -143,6 +175,11 @@ researcher_steps: List[Step] = [hn_research_step, web_research_step]
 if getenv("EXA_API_KEY"):
     researcher_steps.append(exa_research_step)
 
+research_consolidation_step = Step(
+    name="Consolidate Research",
+    executor=consolidate_research_step_function,
+)
+
 writer_step = Step(
     name="Writer",
     agent=writer,
@@ -163,6 +200,7 @@ research_workflow = Workflow(
         """),
     steps=[
         Parallel(*researcher_steps, name="Research Phase"),  # type: ignore
+        research_consolidation_step,
         writer_step,
         reviewer_step,
     ],
