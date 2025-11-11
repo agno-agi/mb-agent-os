@@ -1,6 +1,7 @@
 from datetime import datetime
 from os import getenv
 from textwrap import dedent
+from typing import Any, List
 
 from agno.agent import Agent
 from agno.models.anthropic import Claude
@@ -26,6 +27,7 @@ instructions = dedent("""\
 
 
 # Configure the tools
+tools: List[Any] = []
 if getenv("EXA_API_KEY"):
     tools = [
         ExaTools(

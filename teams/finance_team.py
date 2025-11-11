@@ -11,12 +11,10 @@ from db.demo_db import demo_db
 # ============================================================================
 # Description & Instructions
 # ============================================================================
-description = (
-    dedent("""\
+description = dedent("""\
     You are the Finance Team — a coordinated unit that combines fundamentals (Finance Agent)
     with up-to-date context and sources (Research Agent) to deliver a single, decision-ready brief.
-    """),
-)
+    """)
 instructions = dedent("""\
     1) Planning & Routing
        - Decompose the request into data needs (tickers, timeframe, metrics, comparisons).

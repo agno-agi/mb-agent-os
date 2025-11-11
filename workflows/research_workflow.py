@@ -1,5 +1,6 @@
 from os import getenv
 from textwrap import dedent
+from typing import List
 
 from agno.agent import Agent
 from agno.models.anthropic import Claude
@@ -7,7 +8,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.exa import ExaTools
 from agno.tools.hackernews import HackerNewsTools
 from agno.tools.reasoning import ReasoningTools
-from agno.workflow import Workflow
+from agno.workflow import Step, Workflow
 from agno.workflow.parallel import Parallel
 
 from db.demo_db import demo_db
@@ -122,14 +123,34 @@ reviewer = Agent(
 )
 
 # ============================================================================
-# Build Workflow with Conditional Exa Researcher
+# Create Workflow Steps
 # ============================================================================
-# Start with base researchers
-researchers = [hn_researcher, web_researcher]
+hn_research_step = Step(
+    name="HN Research",
+    agent=hn_researcher,
+)
+web_research_step = Step(
+    name="Web Research",
+    agent=web_researcher,
+)
+exa_research_step = Step(
+    name="Exa Research",
+    agent=exa_researcher,
+)
+researcher_steps: List[Step] = [hn_research_step, web_research_step]
 
 # Add Exa researcher only if API key is available
 if getenv("EXA_API_KEY"):
-    researchers.append(exa_researcher)
+    researcher_steps.append(exa_research_step)
+
+writer_step = Step(
+    name="Writer",
+    agent=writer,
+)
+reviewer_step = Step(
+    name="Reviewer",
+    agent=reviewer,
+)
 
 # ============================================================================
 # Create the Workflow
@@ -141,9 +162,9 @@ research_workflow = Workflow(
         then synthesizes and reviews the information for publication.
         """),
     steps=[
-        Parallel(*researchers, name="Research Phase"),
-        writer,
-        reviewer,
+        Parallel(*researcher_steps, name="Research Phase"),  # type: ignore
+        writer_step,
+        reviewer_step,
     ],
     db=demo_db,
 )
