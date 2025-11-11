@@ -131,7 +131,9 @@ researchers = [hn_researcher, web_researcher]
 if getenv("EXA_API_KEY"):
     researchers.append(exa_researcher)
 
-# Create the workflow
+# ============================================================================
+# Create the Workflow
+# ============================================================================
 research_workflow = Workflow(
     name="Research Workflow",
     description=dedent("""\

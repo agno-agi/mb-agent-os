@@ -5,11 +5,11 @@ from agno.os import AgentOS
 from agents.agno_knowledge_agent import agno_knowledge_agent
 from agents.agno_mcp_agent import agno_mcp_agent
 from agents.finance_agent import finance_agent
-from agents.finance_team import finance_team
 from agents.memory_manager import memory_manager
 from agents.research_agent import research_agent
-from agents.research_workflow import research_workflow
 from agents.youtube_agent import youtube_agent
+from teams.finance_team import finance_team
+from workflows.research_workflow import research_workflow
 
 # ============================================================================
 # AgentOS Config
