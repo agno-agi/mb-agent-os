@@ -8,11 +8,10 @@ authors = [{ name = "Agno", email = "hello@agno.com" }]
 dependencies = [
   "agno",
   "anthropic",
-  "duckduckgo-search",
+  "ddgs",
   "exa_py",
   "fastapi[standard]",
   "mcp",
-  "nest_asyncio",
   "openai",
   "pgvector",
   "psycopg[binary]",

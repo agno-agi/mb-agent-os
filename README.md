@@ -1,9 +1,10 @@
 # AgentOS
 
 Welcome to your AgentOS: a robust, production-ready application for serving agents, multi-agent teams and agentic workflows. It includes:
-  * An **AgentOS server** for serving agents, multi-agent teams and agentic workflows.
-  * A **PostgreSQL database** for storing agent sessions, knowledge, and memories.
-  * A set of **pre-built agents** to use as a starting point.
+
+- An **AgentOS server** for serving agents, multi-agent teams and agentic workflows.
+- A **PostgreSQL database** for storing agent sessions, knowledge, and memories.
+- A set of **pre-built agents, teams and workflows** to use as a starting point.
 
 For more information, checkout [Agno](https://agno.link/gh) and give it a ⭐️
 
@@ -47,16 +48,18 @@ docker compose up -d
 ```
 
 This command starts:
-* The **AgentOS server**, running on [http://localhost:8000](http://localhost:8000).
-* The **PostgreSQL database** for storing agent sessions, knowledge, and memories, accessible on `localhost:5432`.
+
+- The **AgentOS server**, running on [http://localhost:8000](http://localhost:8000).
+- The **PostgreSQL database** for storing agent sessions, knowledge, and memories, accessible on `localhost:5432`.
 
 Once started, you can:
-* View the AgentOS server documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
+
+- View the AgentOS server documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ### Connect the AgnoUI to the AgentOS server
 
-* Open the [Agno UI](https://os.agno.com)
-* Login and add `http://localhost:8000` as a new AgentOS. You can call it `Local AgentOS` (or any name you prefer).
+- Open the [Agno UI](https://os.agno.com)
+- Login and add `http://localhost:8000` as a new AgentOS. You can call it `Local AgentOS` (or any name you prefer).
 
 ### Stop the application
 
@@ -69,10 +72,22 @@ docker compose down
 ## Prebuilt Agents
 
 The `/agents` folder contains pre-built agents that you can use as a starting point.
+
 - Web Search Agent: A simple agent that can search the web.
 - Agno Assist: An Agent that can help answer questions about Agno.
-  - Important: Make sure to load the `agno_assist` [knowledge base](http://localhost:8000/docs#/Agents/load_agent_knowledge_v1_agents__agent_id__knowledge_load_post) before using this agent.
+  - Important: Make sure to load the `agno_assist` knowledge base before using this agent by running `python agents/agno_knowledge_agent.py`. Running this script will add the Agno documentation to the knowledge base. Use the docker command `docker exec -it mb-agent-os-agent-os-1 python agents/agno_knowledge_agent.py` to run the script.
 - Finance Agent: An agent that uses the YFinance API to get stock prices and financial data.
+- Research Agent: An agent that can search the web for information.
+- Memory Manager: An agent that can manage the memory of the agents.
+- YouTube Agent: An agent that can search YouTube for videos and answer questions about them.
+
+The `/teams` folder contains pre-built teams that you can use as a starting point.
+
+- Finance Team: A team of agents that can work together to analyze financial data.
+
+The `/workflows` folder contains pre-built workflows that you can use as a starting point.
+
+- Research Workflow: A workflow that can research information from multiple sources simultaneously.
 
 ## Development Setup
 
@@ -138,10 +153,10 @@ docker compose up -d --build
 
 Need help, have a question, or want to connect with the community?
 
-* 📚 **[Read the Agno Docs](https://docs.agno.com)** for more in-depth information.
-* 💬 **Chat with us on [Discord](https://agno.link/discord)** for live discussions.
-* ❓ **Ask a question on [Discourse](https://agno.link/community)** for community support.
-* 🐛 **[Report an Issue](https://github.com/agno-agi/agent-api/issues)** on GitHub if you find a bug or have a feature request.
+- 📚 **[Read the Agno Docs](https://docs.agno.com)** for more in-depth information.
+- 💬 **Chat with us on [Discord](https://agno.link/discord)** for live discussions.
+- ❓ **Ask a question on [Discourse](https://agno.link/community)** for community support.
+- 🐛 **[Report an Issue](https://github.com/agno-agi/agent-api/issues)** on GitHub if you find a bug or have a feature request.
 
 ## Running in Production
 
@@ -155,5 +170,5 @@ The general process to run in production is:
 ```sh
 ./scripts/build_image.sh
 ```
-3. Run in your cloud provider of choice.
 
+3. Run in your cloud provider of choice.
