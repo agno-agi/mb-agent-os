@@ -124,6 +124,7 @@ reviewer = Agent(
         6. Provide a final polished version with any necessary edits.
         7. This is the final report so make sure that you do not include any information not relevant to report. 
         8. Your output should be a final polished version of the content with any necessary edits.
+        9. Do not share any notes or internal thoughts or comments in your output. Make sure the output is just the final report.
         """),
     add_history_to_context=True,
     markdown=True,
