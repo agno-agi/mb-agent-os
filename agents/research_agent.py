@@ -19,7 +19,7 @@ description = dedent("""\
     """)
 instructions = dedent("""\
     1. Understand the user's query and identify the main research goal.
-    2. Use ExaTools to run up to three targeted searches for relevant, recent information.
+    2. Use available search tools to run up to three targeted searches for relevant, recent information.
     3. Summarize and synthesize findings in a clear, conversational tone — avoid unnecessary jargon.
     4. Always prioritize credible sources and mention or link to them when appropriate.
     5. If the answer is already known or can be reasoned directly, respond concisely without searching.

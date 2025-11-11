@@ -29,14 +29,17 @@ We'll use sonnet 4.5 as the default model, please export the `ANTHROPIC_API_KEY`
 export ANTHROPIC_API_KEY="YOUR_API_KEY_HERE"
 ```
 
-Optional: Export the `OPENAI_API_KEY` and `EXA_API_KEY` environment variables to use OpenAI and Exa services:
+We also use `OPENAI_API_KEY` to generate embeddings for knowledge bases. So, please export the `OPENAI_API_KEY` environment variable to use agents with knowledge bases.
 
 ```sh
 export OPENAI_API_KEY="YOUR_API_KEY_HERE"
-export EXA_API_KEY="YOUR_API_KEY_HERE"
 ```
 
-Note: We are using OpenAI to create embeddings for the knowledge base. So, please export the `OPENAI_API_KEY` environment variable to use the Agno Knowledge Agent.
+Finally, we use Exa for the Research Agent. So, please export the `EXA_API_KEY` environment variable to use the Research Agent.
+
+```sh
+export EXA_API_KEY="YOUR_API_KEY_HERE"
+```
 
 > [!TIP]
 > You can use the `example.env` file as a template to create your own `.env` file.
@@ -75,22 +78,29 @@ docker compose down
 
 The `/agents` folder contains pre-built agents that you can use as a starting point.
 
-- Web Search Agent: A simple agent that can search the web.
-- Agno Assist: An Agent that can help answer questions about Agno.
-  - Important: Make sure to load the `agno_assist` knowledge base before using this agent by running `docker exec -it mb-agent-os-agent-os-1 python -m agents.agno_knowledge_agent
-`. Running this script will add the Agno documentation to the knowledge base.
-- Finance Agent: An agent that uses the YFinance API to get stock prices and financial data.
-- Research Agent: An agent that can search the web for information.
-- Memory Manager: An agent that can manage the memory of the agents.
-- YouTube Agent: An agent that can search YouTube for videos and answer questions about them.
+* **Agno MCP Agent**: An Agent that can help answer questions about Agno using Agno's MCP server. This is a great starting point for building Agents that need to MCP.
+
+* **Agno Knowledge Agent**: An Agent that loads the Agno documentation in a knowledge base and answers questions about Agno. Please run `docker exec -it mb-agent-os-agent-os-1 python -m agents.agno_knowledge_agent` to load the Agno documentation into the knowledge base.
+
+* **Finance Agent**: An agent that uses the YFinance API to get stock prices and financial data.
+
+* **Research Agent**: An agent that can search the web/Exa for information.
+
+* **Memory Manager**: An agent that can manage user memories.
+
+* **YouTube Agent**: An agent that can search YouTube for videos and answer questions about them.
+
+## Prebuilt Teams
 
 The `/teams` folder contains pre-built teams that you can use as a starting point.
 
-- Finance Team: A team of agents that can work together to analyze financial data.
+* **Finance Team**: A team of agents that can work together to analyze financial data.
+
+## Prebuilt Workflows
 
 The `/workflows` folder contains pre-built workflows that you can use as a starting point.
 
-- Research Workflow: A workflow that can research information from multiple sources simultaneously.
+* **Research Workflow**: A workflow that can research information from multiple sources simultaneously.
 
 ## Development Setup
 
