@@ -7,6 +7,7 @@ from agents.agno_mcp_agent import agno_mcp_agent
 from agents.finance_agent import finance_agent
 from agents.memory_manager import memory_manager
 from agents.research_agent import research_agent
+from agents.sql.agent import sql_agent
 from agents.youtube_agent import youtube_agent
 from teams.finance_team import finance_team
 from workflows.research_workflow import research_workflow
@@ -22,6 +23,7 @@ os_config_path = str(Path(__file__).parent.joinpath("config.yaml"))
 agent_os = AgentOS(
     id="mb-agent-os",
     agents=[
+        sql_agent,
         agno_mcp_agent,
         agno_knowledge_agent,
         finance_agent,

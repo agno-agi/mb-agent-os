@@ -78,6 +78,8 @@ docker compose down
 
 The `/agents` folder contains pre-built agents that you can use as a starting point.
 
+* **SQL Agent**: An Agent that can answer questions about the F1 database. Please run `docker exec -it mb-agent-os-agent-os-1 python -m agents.sql.load_f1_data` to load the F1 data into the database.
+
 * **Agno MCP Agent**: An Agent that can help answer questions about Agno using Agno's MCP server. This is a great starting point for building Agents that need to MCP.
 
 * **Agno Knowledge Agent**: An Agent that loads the Agno documentation in a knowledge base and answers questions about Agno. Please run `docker exec -it mb-agent-os-agent-os-1 python -m agents.agno_knowledge_agent` to load the Agno documentation into the knowledge base.

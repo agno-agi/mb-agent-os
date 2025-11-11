@@ -20,6 +20,8 @@ knowledge = Knowledge(
         search_type=SearchType.hybrid,
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
+    # 10 results returned on query
+    max_results=10,
     contents_db=demo_db,
 )
 

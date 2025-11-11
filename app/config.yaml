@@ -1,5 +1,10 @@
 chat:
   quick_prompts:
+    sql-agent:
+      - "Which team won the most Constructors Championships?"
+      - "Most race wins by a driver?"
+      - "How many races did the championship winners win each year?"
+
     agno-mcp-agent:
       - "What is AgentOS?"
       - "What are Agno's key features?"
@@ -31,9 +36,9 @@ chat:
       - "Analyze the automotive industry: Tesla, Ford, General Motors, and Toyota."
 
     research-agent:
+      - "Tell me about Agno."
       - "What are the latest AI breakthroughs this week?"
-      - "Find credible sources about quantum computing trends."
-      - "What's happening in the global energy markets?"
+      - "What are Agents?"
 
     memory-manager:
       - "What do you know about me?"
